@@ -19,10 +19,10 @@ class GildedRose(var items: Array<Item>) {
                 break
             }
 
-            if (item.quality < 50 && (item.name == "Backstage passes to a TAFKAL80ETC concert")) {
+            if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
                 item.quality = item.quality + 1
 
-                if (item.name == "Backstage passes to a TAFKAL80ETC concert" && item.quality < 50) {
+                if (item.quality < 50) {
                     if (item.sellIn < 11) {
                         item.quality = item.quality + 1
                     }
@@ -30,18 +30,24 @@ class GildedRose(var items: Array<Item>) {
                         item.quality = item.quality + 1
                     }
                 }
-            } else if (item.quality > 0) {
+
+                item.sellIn = item.sellIn - 1
+
+                if (item.sellIn < 0) {
+                    item.quality = 0
+                }
+                break
+            }
+
+
+            if (item.quality > 0) {
                 item.quality = item.quality - 1
             }
 
             item.sellIn = item.sellIn - 1
 
-            if (item.sellIn < 0) {
-                if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
-                    item.quality = 0
-                } else if (item.quality > 0) {
-                    item.quality = item.quality - 1
-                }
+            if (item.sellIn < 0 && item.quality > 0) {
+                item.quality = item.quality - 1
             }
         }
     }
