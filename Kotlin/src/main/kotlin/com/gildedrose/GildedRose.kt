@@ -14,6 +14,7 @@ class GildedRose(val items: Array<Item>) {
         is AgedBrie -> item.updateQuality()
         is BackstagePasses -> item.updateQuality()
         is Regular -> item.updateQuality()
+        is Conjured -> item.updateQuality()
         else -> throw NotImplementedError("Missing implementation for item $item")
     }
 }

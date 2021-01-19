@@ -105,6 +105,28 @@ internal class GildedRoseTest {
             assertEquals(0, quality)
         }
     }
+
+    @Test
+    fun `"Conjured" degrade in quality twice as fast as normal items when there are days`() {
+        val items = arrayOf<Item>(Conjured(1, 5))
+        val app = GildedRose(items)
+        val updatedApp = app.updateQuality()
+
+        with(updatedApp.items.first()) {
+            assertEquals(3, quality)
+        }
+    }
+
+    @Test
+    fun `"Conjured" degrade in quality twice as fast as normal items when there aren't days`() {
+        val items = arrayOf<Item>(Conjured(0, 5))
+        val app = GildedRose(items)
+        val updatedApp = app.updateQuality()
+
+        with(updatedApp.items.first()) {
+            assertEquals(1, quality)
+        }
+    }
 }
 
 

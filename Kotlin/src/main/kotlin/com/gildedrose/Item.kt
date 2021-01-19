@@ -52,3 +52,15 @@ class BackstagePasses(sellIn: Int, quality: Int) : Item("Backstage passes to a T
         return BackstagePasses(sellIn, quality)
     }
 }
+
+class Conjured(sellIn: Int, quality: Int): Item("Conjured", sellIn, quality) {
+    fun updateQuality(): Regular {
+        var quality = maxOf(quality - 2, 0)
+        val sellIn = sellIn - 1
+
+        if (sellIn < 0 && quality > 0) {
+            quality = maxOf(quality - 2, 0)
+        }
+        return Regular(name, sellIn, quality)
+    }
+}
