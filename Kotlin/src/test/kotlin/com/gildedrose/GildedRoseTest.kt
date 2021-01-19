@@ -7,7 +7,7 @@ internal class GildedRoseTest {
 
     @Test
     fun `lower by 1 sellIn and quality on update`() {
-        val items = arrayOf(Item("foo", 5, 5))
+        val items = arrayOf<Item>(Regular("foo", 5, 5))
         val app = GildedRose(items)
         val updatedApp = app.updateQuality()
 
@@ -19,7 +19,7 @@ internal class GildedRoseTest {
 
     @Test
     fun `lower by 2 quality when sellIn is less than 0`() {
-        val items = arrayOf(Item("foo", -1, 50))
+        val items = arrayOf<Item>(Regular("foo", -1, 50))
         val app = GildedRose(items)
         val updatedApp = app.updateQuality()
 
@@ -30,7 +30,7 @@ internal class GildedRoseTest {
 
     @Test
     fun `quality is never negative`() {
-        val items = arrayOf(Item("foo", 0, 0))
+        val items = arrayOf<Item>(Regular("foo", 0, 0))
         val app = GildedRose(items)
         val updatedApp = app.updateQuality()
 
@@ -41,7 +41,7 @@ internal class GildedRoseTest {
 
     @Test
     fun `"Aged Brie" increases in quality the older it gets`() {
-        val items = arrayOf(Item("Aged Brie", 0, 0))
+        val items = arrayOf<Item>(AgedBrie(0, 0))
         val app = GildedRose(items)
         val updatedApp = app.updateQuality()
 
@@ -52,7 +52,7 @@ internal class GildedRoseTest {
 
     @Test
     fun `quality is never more than 50`() {
-        val items = arrayOf(Item("Aged Brie", 0, 50))
+        val items = arrayOf<Item>(AgedBrie(0, 50))
         val app = GildedRose(items)
         val updatedApp = app.updateQuality()
 
@@ -63,7 +63,7 @@ internal class GildedRoseTest {
 
     @Test
     fun `"Sulfuras" never has to be sold or decreases in quality`() {
-        val items = arrayOf(Item("Sulfuras, Hand of Ragnaros", 0, 80))
+        val items = arrayOf<Item>(Sulfuras)
         val app = GildedRose(items)
         val updatedApp = app.updateQuality()
 
@@ -75,7 +75,7 @@ internal class GildedRoseTest {
 
     @Test
     fun `"Backstage passes" increases quality by 2 when there are 10 days or less`() {
-        val items = arrayOf(Item("Backstage passes to a TAFKAL80ETC concert", 10, 0))
+        val items = arrayOf<Item>(BackstagePasses(10, 0))
         val app = GildedRose(items)
         val updatedApp = app.updateQuality()
 
@@ -86,7 +86,7 @@ internal class GildedRoseTest {
 
     @Test
     fun `"Backstage passes" increases quality by 3 when there are 5 days or less`() {
-        val items = arrayOf(Item("Backstage passes to a TAFKAL80ETC concert", 5, 0))
+        val items = arrayOf<Item>(BackstagePasses(5, 0))
         val app = GildedRose(items)
         val updatedApp = app.updateQuality()
 
@@ -97,7 +97,7 @@ internal class GildedRoseTest {
 
     @Test
     fun `"Backstage passes" quality drops to 0 after the concert`() {
-        val items = arrayOf(Item("Backstage passes to a TAFKAL80ETC concert", 0, 5))
+        val items = arrayOf<Item>(BackstagePasses(0, 5))
         val app = GildedRose(items)
         val updatedApp = app.updateQuality()
 
