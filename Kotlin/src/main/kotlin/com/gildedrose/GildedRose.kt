@@ -9,13 +9,15 @@ class GildedRose(val items: Array<Item>) {
         return GildedRose(newItems)
     }
 
-    private fun updateItem(item: Item): Item {
-        if (item.name == "Sulfuras, Hand of Ragnaros") {
-            return Item("Sulfuras, Hand of Ragnaros", 0, 80)
-        }
+    private fun updateItem(item: Item): Item = when(item.name) {
+        "Sulfuras, Hand of Ragnaros" -> Item("Sulfuras, Hand of Ragnaros", 0, 80)
+        "Aged Brie" -> updateAgedBrie(item)
+        "Backstage passes to a TAFKAL80ETC concert" -> updateBackstagePasses(item)
+        else -> updateRegularItem(item)
+    }
 
-        if (item.name == "Aged Brie") {
-            val sellIn = item.sellIn - 1
+    private fun updateAgedBrie(item: Item): Item {
+        val sellIn = item.sellIn - 1
 
         var quality = minOf(item.quality + 1, 50)
         if (sellIn < 0) {
@@ -24,16 +26,16 @@ class GildedRose(val items: Array<Item>) {
         return Item(item.name, sellIn, quality)
     }
 
-        if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
-            val sellIn = item.sellIn - 1
+    private fun updateBackstagePasses(item: Item): Item {
+        val sellIn = item.sellIn - 1
 
-            var quality = minOf(item.quality + 1, 50)
-            if (sellIn < 11) {
-                quality = minOf(quality + 1, 50)
-            }
-            if (sellIn < 6) {
-                quality = minOf(quality + 1, 50)
-            }
+        var quality = minOf(item.quality + 1, 50)
+        if (sellIn < 11) {
+            quality = minOf(quality + 1, 50)
+        }
+        if (sellIn < 6) {
+            quality = minOf(quality + 1, 50)
+        }
 
         if (sellIn < 0) {
             quality = 0
@@ -41,7 +43,7 @@ class GildedRose(val items: Array<Item>) {
         return Item(item.name, sellIn, quality)
     }
 
-        // Regular item
+    private fun updateRegularItem(item: Item): Item {
         var quality = maxOf(item.quality - 1, 0)
         val sellIn = item.sellIn - 1
 
@@ -50,6 +52,5 @@ class GildedRose(val items: Array<Item>) {
         }
         return Item(item.name, sellIn, quality)
     }
-
 }
 
